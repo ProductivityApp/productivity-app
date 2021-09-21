@@ -21,14 +21,24 @@ databaseController.newUsername = async (req, res, next) => {
     if (findUsername === null) {
       return next();
     }
+    // return statement below is NOT redundant
+    /*(err, data) => 
+
+    if (findUsername !== null) {
+      return next(errObj) --> break out of the chain
+
+      You want to notify the front end that username already exists!
+    
+    }
+    */
     return next({
       log: 'databaseController.newUsername, username already exists',
       message: { err: 'Error inside of databaseController.newUsername' },
     });
-  } catch {
+  } catch(error) {
     const err = {
       
-      log: 'databaseController.newUsername, username already exists',
+      log: 'databaseController.newUsername, username already exists' + error,
       message: { err: 'Error inside of databaseController.newUsername' },
     };
     return res.status(404).send(err.log).json();

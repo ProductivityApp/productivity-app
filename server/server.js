@@ -16,6 +16,7 @@ app.use(function(req, res, next) {
 const { json } = require('express');
 const fs = require('fs');
 
+//WTF IS THAT?
 app.get('/', (req, res) => {
   console.log('hello app.get server side');
   res.send(res.body);
@@ -25,6 +26,8 @@ app.post('/signup', databaseController.newUsername, databaseController.createUse
   console.log('inside signup endpoint');
   const ReturnEmptyObject = res.locals.userTasks;
   return res.status(200).json(ReturnEmptyObject);
+  //return successful status code 
+  //res.sendStatus(200)
 });
 
 // when the frontend / user adds a new task, add it to the database

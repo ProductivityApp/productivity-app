@@ -21,10 +21,17 @@ export const checkUserActionCreator = (validated, response) => ({
   },
 });
 
+//INCOMPLETE 
 export const toggleTaskActionCreator = (taskId) => ({
   type: types.TOGGLE_TASK,
   payload: taskId,
 });
+
+//THUNKS! 
+/*send an http request to backend
+after receiving the response, dispatch action to reducer
+export the func to be used in the front end
+*/
 
 // Add a new user
 export const addUser = (username, password) => (dispatch, getState) => {
@@ -39,7 +46,8 @@ export const addUser = (username, password) => (dispatch, getState) => {
         },
       })
     .then((response) => {
-      // response received is an empty object
+      //do we need a response object?? or can we do an anomyous then func??
+      // response received is an empty object {task: {}}
       console.log('expecting none for signup', response);
       return dispatch(addUserActionCreator());
     })

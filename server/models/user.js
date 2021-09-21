@@ -11,9 +11,9 @@ mongoose.connect(MONGO_URI, {
 const Schema = mongoose.Schema;  // used to create models
 
 const userSchema = new Schema({
-    username: String,
+    username: String, //{unique: true}? 
     password: String,
-    task: Object,
+    task: Object, //an array?
     // isCompleted: Boolean,
 });
 

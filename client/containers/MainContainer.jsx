@@ -40,7 +40,7 @@ class MainContainer extends React.Component {
     else 
       return (
         <div>
-          <TaskContainer checkUser={this.props.checkUser} username={this.props.username} />
+          <TaskContainer username={this.props.username} />
         </div>
       )
   }
