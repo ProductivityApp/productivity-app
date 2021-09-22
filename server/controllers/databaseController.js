@@ -8,11 +8,12 @@ const models = require('../models/user');
 databaseController.createUser = async (req, res, next) => {
   console.log('did we get to this route??')
   try{
-   const createUser = await models.User.create({ username: `${req.body.username}`, password: `${req.body.password}`, tasks: []}).exec();
+   const createUser = await models.User.create({ username: `${req.body.username}`, password: `${req.body.password}`, tasks: []});
    console.log("createUser",createUser)
    return next()
   }
   catch(error){
+    console.log(error);
     res.locals.errorMessage = {errorMessage: 'invalid username and/or password'}
     return next()
   }
