@@ -37,7 +37,7 @@ export default function taskReducers(state = initialState, action) {
     }
 //***************************************************************************************
 
-    case types.CHECK_USER: {
+    case types.VERIFY_USER: {
       const { username, tasks } = action.payload;
       console.log('THIS IS IN REDUCER AFTER LOGGING IN', action.payload);
       /* {username: string,
@@ -59,6 +59,7 @@ export default function taskReducers(state = initialState, action) {
 // WE WILL COME BACK TO THIS LATER - 9/21 JB
     case types.TOGGLE_TASK: {
       // if its false change it to true and vice versa
+
       // access the task list at the input index, access the isComplete key in that object
       taskIndex = action.payload;
       taskList[taskIndex].isComplete = !taskList[taskIndex].isComplete;
@@ -69,6 +70,17 @@ export default function taskReducers(state = initialState, action) {
         ...state,
         taskList,
       };
+    }
+
+    case types.DELETE_TASK: {
+      alert('Task has been successfully been deleted.')
+      return {
+        ...state,
+        taskList,
+      }
+    }
+    default: {
+      return state;
     }
   }
 }

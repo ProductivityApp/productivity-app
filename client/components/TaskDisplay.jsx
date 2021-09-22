@@ -1,25 +1,22 @@
 /* eslint-disable */
 import React from 'react';
-import Tasks from './Tasks'
-import '../stylesheets/styles.css';
+import Tasks from './Tasks';
+import { useSelector } from 'react-redux';
 
 const TaskDisplay = props => {
   const tasks = [];
-  const taskList = props.taskList;
-  // console.log('task display props', props);
-  
-  for (let index of taskList) {
+  const taskList = useSelector( state => state.tasks.taskList);
+
+   for (let index of taskList) {
     // console.log(`id in for in loop`, id)
     tasks.push(<Tasks key={index} index={index} task={taskList[index]} toggleTask={props.toggleTask}/>)
   };
-  // console.log(tasks);
-  // if (taskList.length !== 0) {
-    return (
-      <div className="list-group">
-        {tasks}
-      </div>
-    )
-  // }
+
+  return (
+    <div className="list-group">
+      {tasks}
+    </div>
+  )
 }
 
 export default TaskDisplay;
