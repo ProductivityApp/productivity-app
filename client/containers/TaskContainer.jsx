@@ -17,17 +17,17 @@ const mapStateToProps = state => (
 const mapDispatchToProps = dispatch => ({
   // create functions that will dispatch action creators
   //remove taskId below -- JB
-  addTask: (username, task) => {
+  addTask: (username, taskName) => {
     // console.log(`props`,this.propzs)
     console.log(username)
     // this.onSave(task)
     // return dispatch(actions.addTaskActionCreator(task))
-    return dispatch(actions.saveTasks(username, task));
+    return dispatch(actions.saveTasks(username, taskName));
   },
   // onSave: () => {console.log('onSave works on button click')}
   toggleTask: (taskId) => {
     return dispatch(actions.toggleTaskActionCreator(taskId));
-  }
+  },
 });
 
 
