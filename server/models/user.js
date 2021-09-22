@@ -12,10 +12,10 @@ mongoose.connect(MONGO_URI, {
   // used to create models
 
 const userSchema = new Schema({
-    username: {type: String, required:true, unique:true}, //{unique: true}? 
+    username: {type: String, required:true, unique:true}, 
     password: {type: String, required:true},
-    tasks: {type: Array, required:true}, //an array?
-    // isCompleted: Boolean,
+    tasks: {type: Array, required:true}, 
+    
 });
 
 const User = mongoose.model('User',userSchema);

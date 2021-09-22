@@ -8,7 +8,6 @@ const models = require('../models/user');
 databaseController.createUser = async (req, res, next) => {
   try{
    const createUser = await models.User.create({ username: `${req.body.username}`, password: `${req.body.password}`, tasks: []});
-   res.locals.userTasks = createUser.tasks;
    return next()
   }
   catch(error){
@@ -20,7 +19,7 @@ databaseController.createUser = async (req, res, next) => {
 databaseController.getUserTasks = async (req, res, next) => {
     try {
       const user = await models.User.findOne({username: `${req.body.username}`});
-      res.locals.userTasks = user.tasks;
+      res.locals.user = user;
       return next();
     } catch (error) {
       return next({errorMessage: 'user is not validated'})
@@ -28,10 +27,11 @@ databaseController.getUserTasks = async (req, res, next) => {
 };
 
 // given a task list in res.locals.userTasks, adds a new task (from req.body) and updates the database with new information
-databaseController.updateUserTasksDB = async (req, res, next) => {
+databaseController.addTask = async (req, res, next) => {
   const filter = { username: `${req.body.username}`};
+  const newTask = {taskName:req.body.task,isComplete:false}
   try {
-    const updatedUser = await models.User.Update(filter,{$push:{tasks:req.body.task}}).exec();
+    const user = await models.User.updateOne(filter,{$push:{tasks:newTask}}).exec();
     return next();
   } catch (error){
     return next({errorMessage:'error adding task'})

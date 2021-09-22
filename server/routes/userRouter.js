@@ -3,7 +3,7 @@ const {getUserTasks,updateUserTasksDB} = require('../controllers/databaseControl
 const router = express.Router();
 
 router.put('/', updateUserTasksDB, (req, res) => {
-    return res.status(200);
+    return res.sendStatus(200);
   });
 
   module.exports = router;

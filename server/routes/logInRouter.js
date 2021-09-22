@@ -4,7 +4,7 @@ const router = express.Router();
 
 
 router.post('/', getUserTasks,(req, res) => {
-  return res.status(200).json({tasks: res.locals.userTasks});
+  return res.status(200).json(res.locals.user);
 });
 
 module.exports = router;
