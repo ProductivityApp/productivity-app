@@ -7,8 +7,9 @@ const TaskDisplay = props => {
   const tasks = [];
   const taskList = useSelector( state => state.tasks.taskList);
 
-  for (let id in taskList) {
-    tasks.push(<Tasks key={id} id={id} taskName={taskList[id].taskName} toggleTask={props.toggleTask}/>)
+   for (let index of taskList) {
+    // console.log(`id in for in loop`, id)
+    tasks.push(<Tasks key={index} index={index} task={taskList[index]} toggleTask={props.toggleTask}/>)
   };
 
   return (

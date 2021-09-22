@@ -5,7 +5,8 @@ const Tasks = (props) => {
   return (
     <div>
       {/* when the button is clicked isCompleted should toggle between true/false */}
-      <button onClick={()=>{return props.toggleTask(props.id)}}type="button" className="list-group-item list-group-item-action">{props.taskName}</button>
+      Task: {props.task.taskName}
+      <button onClick={()=>{return props.toggleTask(props.index, props.task)}}type="button" className="list-group-item list-group-item-action">Mark as Complete</button>
     </div>
   )
 }

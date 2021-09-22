@@ -58,10 +58,18 @@ export default function taskReducers(state = initialState, action) {
 
 // WE WILL COME BACK TO THIS LATER - 9/21 JB
     case types.TOGGLE_TASK: {
-      // access the isCompleted property of the object with key taskId
-      console.log(state.taskId);
-      console.log(state.taskList);
       // if its false change it to true and vice versa
+
+      // access the task list at the input index, access the isComplete key in that object
+      taskIndex = action.payload;
+      taskList[taskIndex].isComplete = !taskList[taskIndex].isComplete;
+    
+      
+      // update task list at the end 
+      return {
+        ...state,
+        taskList,
+      };
     }
 
     case types.DELETE_TASK: {

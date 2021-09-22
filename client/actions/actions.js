@@ -3,6 +3,7 @@ import axios from "axios";
 // import thunk from 'redux-thunk';
 import * as types from "../constants/actionTypes";
 
+
 export const addTaskActionCreator = (task) => ({
   type: types.ADD_TASK,
   payload: task,
@@ -12,7 +13,6 @@ export const addUserActionCreator = () => ({
   type: types.ADD_USER,
 });
 
-
 export const verifyUserActionCreator = (username, tasks=null) => ({
   type: types.VERIFY_USER,
   payload: {
@@ -21,11 +21,13 @@ export const verifyUserActionCreator = (username, tasks=null) => ({
   },
 });
 
+
 //INCOMPLETE
 export const toggleTaskActionCreator = (taskId) => ({
   type: types.TOGGLE_TASK,
-  payload: taskId,
+  payload: taskIndex
 });
+
 
 export const deleteTaskActionCreator = () => ({
   type: types.DELETE_TASK,
@@ -63,6 +65,7 @@ export const addUser = (username, password) => (dispatch, getState) => {
 };
 
 
+
 export const verifyUser = (username, password) => (dispatch, getState) => {
   console.log(username)
   console.log('this is getstate', getState());
@@ -81,12 +84,13 @@ export const verifyUser = (username, password) => (dispatch, getState) => {
         return alert("The username/password you've entered is incorrect");
       console.log("WHEN LOGGED IN, WE RECEIVE THIS", response.data);
       const { username, tasks } = response.data;
-      if ( tasks.length === 0) return dispatch(checkUserActionCreator( username));
+      if ( tasks.length === 0) return dispatch(verifyUserActionCreator( username));
       else return dispatch(verifyUserActionCreator(username, tasks));
     });
 };
 
 // Body needs to match content-type
+
 export const addTask = (username, task) => (dispatch, getState) => {
   console.log('saveTasks username, ', username);
   console.log('saveTasks task action, ', task);
@@ -119,5 +123,23 @@ export const deleteTask = (username, taskName) => (dispatch, getState) => {
     )
     .then(() => {
       return dispatch(deleteTaskActionCreator());
+    });
+};
+
+export const toggleTask = (taskIndex, taskObj) => (dispatch, getState) => {
+  
+  
+  axios
+    .patch(
+      "http://localhost:3000/toggleTask",
+      `taskIndex=${taskIndex}&taskObj=${taskObj}`,
+      {
+        headers: {
+          "Content-type": "application/x-www-form-urlencoded",
+        },
+      }
+    )
+    .then((response) => {
+      return dispatch(toggleTaskActionCreator(taskIndex));
     });
 };
