@@ -1,8 +1,8 @@
 const express = require('express');
-const {getUserTasks,updateUserTasksDB} = require('../controllers/databaseController');
+const {addTask} = require('../controllers/databaseController');
 const router = express.Router();
 
-router.put('/', updateUserTasksDB, (req, res) => {
+router.post('/', addTask, (req, res) => {
     return res.sendStatus(200);
   });
 

@@ -30,7 +30,8 @@ class MainContainer extends React.Component {
   
   render(){
     console.log(`username in main container`,this.props.username)
-    if (this.props.username) const loggedIn = true;
+    let loggedIn = this.props.username ? true : false; 
+
     if (loggedIn === false) 
       return(
         <div>
