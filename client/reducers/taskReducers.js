@@ -63,6 +63,14 @@ export default function taskReducers(state = initialState, action) {
       console.log(state.taskList);
       // if its false change it to true and vice versa
     }
+
+    case types.DELETE_TASK: {
+      alert('Task has been successfully been deleted.')
+      return {
+        ...state,
+        taskList,
+      }
+    }
     default: {
       return state;
     }

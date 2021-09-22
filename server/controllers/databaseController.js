@@ -1,4 +1,5 @@
 const { json } = require('express');
+const { model } = require('mongoose');
 // const fetch = require('node-fetch');
 const databaseController = {};
 const models = require('../models/user');
@@ -34,12 +35,24 @@ databaseController.getUserTasks = async (req, res, next) => {
 // given a task list in res.locals.userTasks, adds a new task (from req.body) and updates the database with new information
 databaseController.addTask = async (req, res, next) => {
   const filter = { username: `${req.body.username}`};
-  const newTask = {taskName:req.body.task,isComplete:false}
+  const newTask = {taskName:req.body.taskName, isComplete:false}
   try {
     const user = await models.User.updateOne(filter,{$push:{tasks:newTask}}).exec();
+    res.locals.taskAdded = newTask;
     return next();
   } catch (error){
     return next({errorMessage:'error adding task'})
+  }
+};
+
+databaseController.deleteTask = async (req, res, next) => {
+  const filter = { username: `${req.body.username}` };
+  try {
+    const user = await models.User.updateOne(filter, {$pull: {tasks: {taskName: `${req.body.task}`}}}).exec();
+    // do we have to send back anything? KK
+    return next();
+  } catch (error) {
+    return next({errorMessage: 'error deleting task'})
   }
 };
 
