@@ -11,7 +11,6 @@ const mapStateToProps = state => (
   // what are the properties of state that this component wants to subscribe to?
   {
     taskList: state.tasks.taskList,
-    taskId: state.tasks.taskId
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -25,8 +24,8 @@ const mapDispatchToProps = dispatch => ({
     return dispatch(actions.saveTasks(username, task));
   },
   // onSave: () => {console.log('onSave works on button click')}
-  toggleTask: (taskId) => {
-    return dispatch(actions.toggleTaskActionCreator(taskId));
+  toggleTask: (taskIndex, taskObj) => {
+    return dispatch(actions.toggleTask(taskIndex, taskObj));
   }
 });
 
@@ -45,5 +44,7 @@ class TaskContainer extends React.Component {
     )
   }
 }
+
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskContainer);
