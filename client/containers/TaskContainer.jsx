@@ -16,12 +16,13 @@ const mapStateToProps = state => (
 
 const mapDispatchToProps = dispatch => ({
   // create functions that will dispatch action creators
-  addTask: (username, task, taskId) => {
+  //remove taskId below -- JB
+  addTask: (username, task) => {
     // console.log(`props`,this.propzs)
     console.log(username)
     // this.onSave(task)
     // return dispatch(actions.addTaskActionCreator(task))
-    return dispatch(actions.saveTasks(username, task, taskId));
+    return dispatch(actions.saveTasks(username, task));
   },
   // onSave: () => {console.log('onSave works on button click')}
   toggleTask: (taskId) => {
@@ -33,16 +34,13 @@ const mapDispatchToProps = dispatch => ({
 class TaskContainer extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {
-      
-    // };
   }
   
   render() {
     return (
       <div>
         <TaskCreator username={this.props.username} addTask={this.props.addTask}/>
-        <TaskDisplay taskList={this.props.taskList} taskId={this.props.taskId} toggleTask={this.props.toggleTask}/>
+        <TaskDisplay taskList={this.props.taskList} toggleTask={this.props.toggleTask}/>
       </div>
     )
   }

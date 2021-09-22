@@ -12,12 +12,11 @@ export const addUserActionCreator = () => ({
   type: types.ADD_USER,
 });
 
-export const checkUserActionCreator = (validated, response) => ({
+export const checkUserActionCreator = (username, tasks=null) => ({
   type: types.CHECK_USER,
   payload: {
-    validated : validated,
-    response: response.task,
-    username: response.username,
+    username,
+    tasks,
   },
 });
 
@@ -45,12 +44,13 @@ export const addUser = (username, password) => (dispatch, getState) => {
           'Content-type': 'application/x-www-form-urlencoded',
         },
       })
-    .then((response) => {
+    .then(() => {
       //do we need a response object?? or can we do an anomyous then func??
       // response received is an empty object {task: {}}
-      console.log('expecting none for signup', response);
       return dispatch(addUserActionCreator());
     })
+    // will it ever throw an error in the middleware func if username exists? 
+    //or does it throw an error because it didnt complete the middeware func chain? --JB
     .catch((error) => console.log('Error from /signup page, username exists'));
 };
 
@@ -65,26 +65,23 @@ export const checkUser = (username, password) => (dispatch, getState) => {
           'Content-type': 'application/x-www-form-urlencoded',
         },
       })
-    // do something here
     .then((response) => {
-      // console.log('checkUser: response', response.data.task);
-      // console.log('response.data.task', response.data.task.task);
-      const validated = true;
-      if (!response.data.task) return dispatch(checkUserActionCreator(validated));
-      else return dispatch(checkUserActionCreator(validated, response.data.task));
+      if (response.data.hasOwnProperty(errorMessage)) return alert('The username/password you\'ve entered is incorrect');
+      const { username, tasks } = response.data;
+      if ( tasks.length === 0) return dispatch(checkUserActionCreator( username));
+      else return dispatch(checkUserActionCreator(username, tasks));
     });
 };
-// &username=${username}
+
+
 // Body needs to match content-type
-export const saveTasks = (username, task, taskId) => (dispatch, getState) => {
+export const saveTasks = (username, task) => (dispatch, getState) => {
   console.log('saveTasks username, ', username);
   console.log('saveTasks task action, ', task);
-  console.log('saveTasks taskId action, ', taskId);
-  // console.log('this is getstate', getState());
-  const tasks = `task=${task}&taskId=${taskId}&isCompleted=${false}&username=${username}`;
+
   axios
     .post('http://localhost:3000/addtask',
-      tasks,
+          `task=${task}&username=${username}`,
       {
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',

@@ -9,7 +9,6 @@ import * as actions from '../actions/actions';
 const mapStateToProps = state => (
   {
     username: state.tasks.username,
-    loggedIn: state.tasks.loggedIn,
   }
 );
 
@@ -27,11 +26,12 @@ const mapDispatchToProps = dispatch => (
 class MainContainer extends React.Component {
   constructor(props) {
     super(props);
-   
   }
+  
   render(){
     console.log(`username in main container`,this.props.username)
-    if (this.props.loggedIn === false) 
+    if (this.props.username) const loggedIn = true;
+    if (loggedIn === false) 
       return(
         <div>
           <LogIn addUser={this.props.addUser} checkUser={this.props.checkUser} />
@@ -44,12 +44,6 @@ class MainContainer extends React.Component {
         </div>
       )
   }
-    // return (
-    //   <div>
-    //     <TaskContainer checkUser={this.props.checkUser} username={this.props.username} />
-    //   </div>
-    // )
-// }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);
