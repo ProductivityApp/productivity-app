@@ -13,13 +13,13 @@ const TaskDisplay = props => {
     tasks.push(<Tasks key={id} id={id} taskName={taskList[id].taskName} toggleTask={props.toggleTask}/>)
   };
   // console.log(tasks);
-  if (taskList.length !== 0) {
+  //if (taskList.length !== 0) {
     return (
       <div className="list-group">
         {tasks}
       </div>
     )
-  }
+  //}
 }
 
 export default TaskDisplay;

@@ -15,10 +15,10 @@ export default function taskReducers(state = initialState, action) {
 
     case types.ADD_TASK: {
       const newTask = {
-        task: action.payload,
-        completed: false,
+        taskName: action.payload,
+        isComplete: false,
       };
-
+      console.log("newTask in reducer",newTask);
       taskList = state.taskList.slice();
       taskList.push(newTask);
 
