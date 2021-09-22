@@ -35,7 +35,7 @@ export the func to be used in the front end
 // Add a new user
 export const addUser = (username, password) => (dispatch, getState) => {
   axios
-    .post('http://localhost:3000/signup',
+    .post('http://localhost:3000/signup/',
       `username=${username}&password=${password}`,
       {
         method: 'POST',
@@ -44,14 +44,15 @@ export const addUser = (username, password) => (dispatch, getState) => {
           'Content-type': 'application/x-www-form-urlencoded',
         },
       })
-    .then(() => {
+    .then((response) => {
       //do we need a response object?? or can we do an anomyous then func??
       // response received is an empty object {task: {}}
+      // if (response.data.hasOwnProperty('errorMessage')) return alert('Error from /signup page, username exists');
       return dispatch(addUserActionCreator());
     })
     // will it ever throw an error in the middleware func if username exists? 
     //or does it throw an error because it didnt complete the middeware func chain? --JB
-    .catch((error) => console.log('Error from /signup page, username exists'));
+    .catch((error) => alert('Error from /signup page, username exists'));
 };
 
 export const checkUser = (username, password) => (dispatch, getState) => {
@@ -66,7 +67,8 @@ export const checkUser = (username, password) => (dispatch, getState) => {
         },
       })
     .then((response) => {
-      if (response.data.hasOwnProperty(errorMessage)) return alert('The username/password you\'ve entered is incorrect');
+      if (response.data.hasOwnProperty('errorMessage')) return alert('The username/password you\'ve entered is incorrect');
+      console.log('WHEN LOGGED IN, WE RECEIVE THIS',  response.data);
       const { username, tasks } = response.data;
       if ( tasks.length === 0) return dispatch(checkUserActionCreator( username));
       else return dispatch(checkUserActionCreator(username, tasks));

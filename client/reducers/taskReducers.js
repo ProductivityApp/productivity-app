@@ -3,7 +3,7 @@ import * as types from '../constants/actionTypes';
 
 const initialState = {
   //changed taskList from {} to [] --JB
-  username: '',
+  username: null,
   taskList: [],
 };
 
@@ -19,7 +19,7 @@ export default function taskReducers(state = initialState, action) {
         completed: false,
       };
 
-      taskList = taskList.slice();
+      taskList = state.taskList.slice();
       taskList.push(newTask);
 
       return {
@@ -39,6 +39,7 @@ export default function taskReducers(state = initialState, action) {
 
     case types.CHECK_USER: {
       const { username, tasks } = action.payload;
+      console.log('THIS IS IN REDUCER AFTER LOGGING IN', action.payload);
       /* {username: string,
           password: string,
           tasks: [{taskName: string, isCompleted; boolean}, {}, {}]
