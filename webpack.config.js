@@ -3,10 +3,10 @@ const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './client/index.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve(__dirname, 'build'),
     publicPath: '/',
   },
   mode: process.env.NODE_ENV,
@@ -33,7 +33,7 @@ module.exports = {
   },
   plugins: [
     new HTMLWebpackPlugin({
-      template: 'src/index.html'
+      template: 'client/index.html'
     }),
   ],
   resolve: {
