@@ -12,8 +12,9 @@ export const addUserActionCreator = () => ({
   type: types.ADD_USER,
 });
 
-export const checkUserActionCreator = (username, tasks = null) => ({
-  type: types.CHECK_USER,
+
+export const verifyUserActionCreator = (username, tasks=null) => ({
+  type: types.VERIFY_USER,
   payload: {
     username,
     tasks,
@@ -61,9 +62,10 @@ export const addUser = (username, password) => (dispatch, getState) => {
     .catch((error) => alert("Error from /signup page, username exists"));
 };
 
-export const checkUser = (username, password) => (dispatch, getState) => {
-  console.log(username);
-  console.log("this is getstate", getState());
+
+export const verifyUser = (username, password) => (dispatch, getState) => {
+  console.log(username)
+  console.log('this is getstate', getState());
   axios
     .post(
       "http://localhost:3000/login",
@@ -79,16 +81,15 @@ export const checkUser = (username, password) => (dispatch, getState) => {
         return alert("The username/password you've entered is incorrect");
       console.log("WHEN LOGGED IN, WE RECEIVE THIS", response.data);
       const { username, tasks } = response.data;
-      if (tasks.length === 0) return dispatch(checkUserActionCreator(username));
-      else return dispatch(checkUserActionCreator(username, tasks));
+      if ( tasks.length === 0) return dispatch(checkUserActionCreator( username));
+      else return dispatch(verifyUserActionCreator(username, tasks));
     });
 };
 
 // Body needs to match content-type
-export const saveTasks = (username, taskName) => (dispatch, getState) => {
-  console.log("saveTasks username, ", username);
-  console.log("saveTasks task action, ", taskName);
-
+export const addTask = (username, task) => (dispatch, getState) => {
+  console.log('saveTasks username, ', username);
+  console.log('saveTasks task action, ', task);
   axios
     .post(
       "http://localhost:3000/task/addtask",

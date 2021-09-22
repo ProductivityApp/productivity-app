@@ -14,6 +14,7 @@ databaseController.createUser = async (req, res, next) => {
    return next()
   }
   catch(error){
+    console.log(error);
     res.locals.errorMessage = {errorMessage: 'invalid username and/or password'}
     return next()
   }

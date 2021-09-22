@@ -37,7 +37,7 @@ export default function taskReducers(state = initialState, action) {
     }
 //***************************************************************************************
 
-    case types.CHECK_USER: {
+    case types.VERIFY_USER: {
       const { username, tasks } = action.payload;
       console.log('THIS IS IN REDUCER AFTER LOGGING IN', action.payload);
       /* {username: string,

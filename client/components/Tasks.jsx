@@ -1,10 +1,7 @@
 /* eslint-disable */
 import React from 'react';
-import '../stylesheets/styles.css';
 
 const Tasks = (props) => {
-  // console.log(`task props ${props.taskList}`)
-  console.log('Tasks component props', props);
   return (
     <div>
       {/* when the button is clicked isCompleted should toggle between true/false */}
