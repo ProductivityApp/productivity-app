@@ -2,69 +2,61 @@
 import * as types from '../constants/actionTypes';
 
 const initialState = {
-  taskList: {},
-  taskId: 0,
-  loggedIn: false,
+  //changed taskList from {} to [] --JB
   username: '',
+  taskList: [],
 };
 
 export default function taskReducers(state = initialState, action) {
   let taskList;
-  let { taskId } = state;
 
   switch (action.type) {
-    case 'ADD_TASK': {
+//***************************************************************************************    
+
+    case types.ADD_TASK: {
       const newTask = {
-        taskId: {
-          task: action.payload,
-          completed: false,
-        },
+        task: action.payload,
+        completed: false,
       };
 
-      // make a copy of state for taskList
-      // taskList = Object.create({}, state.taskList);
-      // taskList[taskId] = newTask.taskId;
-      taskList = JSON.parse(JSON.stringify(state.taskList));
-      taskList[taskId] = newTask.taskId;
-      taskId = state.taskId + 1;
+      taskList = taskList.slice();
+      taskList.push(newTask);
+
       return {
         ...state,
         taskList,
-        taskId,
       };
     }
-    case 'ADD_USER': {
+//***************************************************************************************
+
+    case types.ADD_USER: {
       alert('You\'ve signed up please log in');
       return {
         ...state,
       };
     }
-    case 'CHECK_USER': {
-      // console.log(`action payload`,action.payload.username);
-      const tasks = action.payload.response;
-      taskList = {};
-      let newKey;
-      for (const [key, value] of Object.entries(tasks)) {
-        taskList[key] = {
-          task: value.taskName,
-          completed: value.isCompleted,
+//***************************************************************************************
+
+    case types.CHECK_USER: {
+      const { username, tasks } = action.payload;
+      /* {username: string,
+          password: string,
+          tasks: [{taskName: string, isCompleted; boolean}, {}, {}]
         }
-        newKey = key;
-        if (value.taskName === 'You currently have no tasks!') newKey = -1;
-        // console.log(value.taskName)
-        // console.log(key, value);
-      }
-      // console.log(taskList);
-      console.log(`newkey`,newKey);
+      */
+
+      taskList = tasks ? tasks : [];
+
       return {
-        ...state,
-        taskId: newKey+1,
+        username,
         taskList,
-        loggedIn: action.payload.validated,
-        username: action.payload.username,
       };
     }
-    case 'TOGGLE_TASK': {
+
+//***************************************************************************************    
+
+// WE WILL COME BACK TO THIS LATER - 9/21 JB
+    case types.TOGGLE_TASK: {
       // access the isCompleted property of the object with key taskId
       console.log(state.taskId);
       console.log(state.taskList);
