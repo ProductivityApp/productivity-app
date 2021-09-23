@@ -9,13 +9,14 @@ const initialState = {
 
 export default function taskReducers(state = initialState, action) {
   let taskList;
+  let index;
 
   switch (action.type) {
 //***************************************************************************************    
 
     case types.ADD_TASK: {
       const newTask = action.payload;
-
+      console.log(newTask);
       taskList = state.taskList.slice();
       taskList.push(newTask);
 
@@ -72,7 +73,11 @@ export default function taskReducers(state = initialState, action) {
 
     case types.DELETE_TASK: {
       alert('Task has successfully been deleted.')
-      taskList = action.payload;
+
+      index = action.payload;
+      taskList = state.taskList.slice();
+ 
+      taskList.splice(index, 1);
       console.log('TASKREDUCER', taskList);
       console.log(state);
       return {

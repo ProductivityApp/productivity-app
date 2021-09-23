@@ -1,15 +1,14 @@
 const { json } = require('express');
 const { model } = require('mongoose');
-// const fetch = require('node-fetch');
 const databaseController = {};
-const models = require('../models/user');
+const {User, Task} = require('../models/user');
 
 // creates a user in the database where username is equal to the value sent from the front end
 // sends user's tasks back to front end, which will initially be a property 'task' with the value []
 databaseController.createUser = async (req, res, next) => {
   console.log('did we get to this route??')
   try{
-   const createUser = await models.User.create({ username: `${req.body.username}`, password: `${req.body.password}`, tasks: []});
+   const createUser = await User.create({ username: `${req.body.username}`, password: `${req.body.password}`, tasks: []});
    console.log("createUser",createUser)
    return next()
   }
@@ -23,7 +22,7 @@ databaseController.createUser = async (req, res, next) => {
 // gets a specified user (from req.body) and logs their task list in res.locals.userTasks
 databaseController.getUserTasks = async (req, res, next) => {
     try {
-      const user = await models.User.findOne({username: `${req.body.username}`}).exec();
+      const user = await User.findOne({username: `${req.body.username}`}).exec();
       // console.log("getUserTasks",user);
       res.locals.user = user;
       return next();
@@ -35,10 +34,12 @@ databaseController.getUserTasks = async (req, res, next) => {
 // given a task list in res.locals.userTasks, adds a new task (from req.body) and updates the database with new information
 databaseController.addTask = async (req, res, next) => {
   const filter = { username: `${req.body.username}`};
-  const newTask = {taskName:req.body.taskName, isComplete:false}
+  // const newTask = {taskName:req.body.taskName, isComplete:false}
+  const newTask = await Task.create({taskName: req.body.taskName});
+  console.log(newTask);
   // console.log('addTask', req.body);
   try {
-    const user = await models.User.updateOne(filter,{$push:{tasks:newTask}}).exec();
+    const user = await User.updateOne(filter,{$push:{tasks:newTask}}).exec();
     res.locals.taskAdded = newTask;
     return next();
   } catch (error){
@@ -50,12 +51,12 @@ databaseController.deleteTask = async (req, res, next) => {
   const userToFind = { username: `${req.body.username}` };
   console.log(req.body);
   console.log(req.body.username);
-  console.log(req.body.taskList);
+  console.log(req.body.taskId._id);
   try {
     // const user = await models.User.updateOne(filter, {$pull: {tasks: {taskName: `${req.body.task}`}}}).exec();
     // do we have to send back anything? KK
 
-    const user = await models.User.findOneAndUpdate(userToFind, {tasks: req.body.taskList}, {new:true}).exec();
+  const user = await User.findOneAndUpdate(userToFind, { $pull: { tasks: {_id: req.body.taskId._id}}}, {new:true}).exec();
     console.log('DELETETASK', user);
     /*
     { username: string, password: string, tasks: [{}, {}, {}]}
@@ -63,6 +64,7 @@ databaseController.deleteTask = async (req, res, next) => {
    
     return next();
   } catch (error) {
+    console.log(error);
     return next({errorMessage: 'error deleting task'})  
   }
 };

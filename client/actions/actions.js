@@ -29,9 +29,9 @@ export const toggleTaskActionCreator = (taskId) => ({
 });
 
 
-export const deleteTaskActionCreator = (taskList) => ({
+export const deleteTaskActionCreator = (index) => ({
   type: types.DELETE_TASK,
-  payload: taskList
+  payload: index
 })
 
 //THUNKS!
@@ -111,22 +111,24 @@ export const addTask = (username, taskName) => (dispatch, getState) => {
     });
 };
 
-export const deleteTask = (username, taskList, index) => (dispatch, getState) => {
+export const deleteTask = (username, taskId, index) => (dispatch, getState) => {
+  console.log(taskId);
+  console.log(index);
   // console.log('ACTIONS.JS DELETE TASK', username, index, taskList)
   // console.log('getstate in deletetask', getState())
   // const currState = getState();
   // const username = currState.tasks.username;
   // const taskList = currState.tasks.taskList;
-  const taskListCopy = taskList.slice();
-  taskListCopy.splice(index, 1);
-  console.log('THIS IS USERNAME< TL', username, taskListCopy);
+  // const taskListCopy = taskList.slice();
+  // taskListCopy.splice(index, 1);
+  // console.log('THIS IS USERNAME< TL', username, taskListCopy);
   axios.post("http://localhost:3000/task/deletetask", {
-    taskList: taskListCopy, 
+    taskId: taskId, 
     username: username, 
     index: index
   })
     .then(() => {
-      return dispatch(deleteTaskActionCreator(taskListCopy));
+      return dispatch(deleteTaskActionCreator(index));
     });
 
 };
