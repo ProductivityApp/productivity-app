@@ -1,9 +1,13 @@
 const express = require('express');
-const {validateUser,getUserTasks} = require('../controllers/databaseController');
+const {verifyPassword,getUserTasks} = require('../controllers/databaseController');
 const router = express.Router();
 
 
-router.post('/', getUserTasks,(req, res) => {
+router.post('/', verifyPassword, getUserTasks,(req, res) => {
+  if(res.locals.errorMessage){
+    console.log(res.locals.errorMessage)
+    return res.sendStatus(400);
+  }
   return res.status(200).json(res.locals.user);
 });
 
