@@ -23,9 +23,9 @@ export const verifyUserActionCreator = (username, tasks=null) => ({
 
 
 //INCOMPLETE
-export const toggleTaskActionCreator = (taskId) => ({
+export const toggleTaskActionCreator = (index) => ({
   type: types.TOGGLE_TASK,
-  payload: taskIndex
+  payload: index
 });
 
 
@@ -44,7 +44,7 @@ export the func to be used in the front end
 export const addUser = (username, password) => (dispatch, getState) => {
   axios
     .post(
-      "http://localhost:3000/signup/",
+      "http://localhost:3000/signup",
       `username=${username}&password=${password}`,
       {
         method: "POST",
@@ -135,25 +135,16 @@ export const deleteTask = (username, taskId, index) => (dispatch, getState) => {
 
 };
 
-export const toggleTask = (username, taskId, taskIndex, ) => (dispatch, getState) => {
-  
+export const toggleTask = (taskId,index) => (dispatch,getState) => {
+  console.log("taskId and Index",taskId,index)
   axios
-    .patch(
+    .post(
       "http://localhost:3000/task/toggletask",
       {
         taskId: taskId, 
-        username: username, 
-        index: index
       }
     )
     .then(() => {
       return dispatch(toggleTaskActionCreator(index));
     });
-    /* normally: fetch request to backend
-    response back will change state
-    
-
-    */
-
-
 };

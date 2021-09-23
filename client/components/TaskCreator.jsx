@@ -31,8 +31,8 @@ const TaskCreator = (props) => {
   const isTaskNameUnique = () => {
     const newInput =  document.getElementById('newTask').value;
     let unique = true;
-    for(let i = 0; i < taskList.length; i++){
-      if(taskList[i].taskName === newInput) unique = false;
+    for(let i = 0; i < props.taskList.length; i++){
+      if(props.taskList[i].taskName === newInput) unique = false;
       break;
     }
     if(unique) props.addTask(props.username, newInput);

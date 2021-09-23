@@ -14,9 +14,9 @@ router.post('/deletetask', deleteTask, (req, res) => {
   return res.sendStatus(200);
 })
 
-router.patch('/toggletask', toggleTask, (req, res) => {
+router.post('/toggletask', toggleTask, (req, res) => {
   return res.sendStatus(200);
 })
 
 
-  module.exports = router;
+module.exports = router;
