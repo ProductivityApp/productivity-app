@@ -20,8 +20,11 @@ const mapDispatchToProps = dispatch => ({
   addTask: (username, task) => {
     return dispatch(actions.addTask(username, task));
   },
-  toggleTask: (username,taskName,taskIndex) => {
-    return dispatch(actions.toggleTaskActionCreator(username, taskName, taskIndex));
+  toggleTask: (index) => {
+    return dispatch(actions.toggleTaskActionCreator(index));
+  },
+  deleteTask: (username, taskId, index) => {
+    return dispatch(actions.deleteTask(username, taskId, index));
   }
 });
 
@@ -36,7 +39,7 @@ class TaskContainer extends React.Component {
     return (
         <div>
         <TaskCreator username={this.props.username} addTask={this.props.addTask}/>
-        <TaskDisplay username={this.props.username} taskList={this.props.filterList} toggleTask={this.props.toggleTask}/>
+        <TaskDisplay taskList={this.props.filterList} toggleTask={this.props.toggleTask} deleteTask={this.props.deleteTask}/>
       </div>
     )
     } 
@@ -44,7 +47,7 @@ class TaskContainer extends React.Component {
         return (
             <div>
             <TaskCreator username={this.props.username} addTask={this.props.addTask}/>
-            <TaskDisplay username={this.props.username} taskList={this.props.taskList} toggleTask={this.props.toggleTask}/>
+            <TaskDisplay username={this.props.username} taskList={this.props.taskList} toggleTask={this.props.toggleTask} deleteTask={this.props.deleteTask}/>
           </div>
     )
     }
