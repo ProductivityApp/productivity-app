@@ -4,9 +4,9 @@ import axios from "axios";
 import * as types from "../constants/actionTypes";
 
 
-export const addTaskActionCreator = (task) => ({
+export const addTaskActionCreator = (taskAdded) => ({
   type: types.ADD_TASK,
-  payload: task,
+  payload: taskAdded,
 });
 
 export const addUserActionCreator = () => ({
@@ -29,8 +29,9 @@ export const toggleTaskActionCreator = (taskId) => ({
 });
 
 
-export const deleteTaskActionCreator = () => ({
+export const deleteTaskActionCreator = (index) => ({
   type: types.DELETE_TASK,
+  payload: index
 })
 
 //THUNKS!
@@ -68,7 +69,6 @@ export const addUser = (username, password) => (dispatch, getState) => {
 
 export const verifyUser = (username, password) => (dispatch, getState) => {
   console.log(username)
-  console.log('this is getstate', getState());
   axios
     .post(
       "http://localhost:3000/login",
@@ -91,9 +91,10 @@ export const verifyUser = (username, password) => (dispatch, getState) => {
 
 // Body needs to match content-type
 
-export const addTask = (username, task) => (dispatch, getState) => {
+export const addTask = (username, taskName) => (dispatch, getState) => {
   console.log('saveTasks username, ', username);
-  console.log('saveTasks task action, ', task);
+  // console.log('saveTasks task action, ', task);
+  console.log('this is getState', getState());
   axios
     .post(
       "http://localhost:3000/task/addtask",
@@ -110,20 +111,26 @@ export const addTask = (username, task) => (dispatch, getState) => {
     });
 };
 
-export const deleteTask = (username, taskName) => (dispatch, getState) => {
-  axios
-    .delete(
-      "http://localhost:3000/task/deletetask",
-      `taskName=${taskName}&username=${username}`,
-      {
-        headers: {
-          "Content-type": "application/x-wwww-form-urlencoded",
-        },
-      }
-    )
+export const deleteTask = (username, taskId, index) => (dispatch, getState) => {
+  console.log(taskId);
+  console.log(index);
+  // console.log('ACTIONS.JS DELETE TASK', username, index, taskList)
+  // console.log('getstate in deletetask', getState())
+  // const currState = getState();
+  // const username = currState.tasks.username;
+  // const taskList = currState.tasks.taskList;
+  // const taskListCopy = taskList.slice();
+  // taskListCopy.splice(index, 1);
+  // console.log('THIS IS USERNAME< TL', username, taskListCopy);
+  axios.post("http://localhost:3000/task/deletetask", {
+    taskId: taskId, 
+    username: username, 
+    index: index
+  })
     .then(() => {
-      return dispatch(deleteTaskActionCreator());
+      return dispatch(deleteTaskActionCreator(index));
     });
+
 };
 
 export const toggleTask = (taskIndex, taskObj) => (dispatch, getState) => {
@@ -143,3 +150,13 @@ export const toggleTask = (taskIndex, taskObj) => (dispatch, getState) => {
       return dispatch(toggleTaskActionCreator(taskIndex));
     });
 };
+
+
+// `taskList=${taskList}&username=${username}`,
+      // // "http://localhost:3000/task/deletetask",
+      // // `username=${username}&taskList=${taskList}&index=${index}`,
+      // {
+      //   headers: {
+      //     "Content-type": "application/x-wwww-form-urlencoded",
+      //   },
+      // }
