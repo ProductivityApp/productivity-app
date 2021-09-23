@@ -135,30 +135,25 @@ export const deleteTask = (username, taskId, index) => (dispatch, getState) => {
 
 };
 
-export const toggleTask = (taskIndex, taskObj) => (dispatch, getState) => {
-  
+export const toggleTask = (username, taskId, taskIndex, ) => (dispatch, getState) => {
   
   axios
     .patch(
-      "http://localhost:3000/toggleTask",
-      `taskIndex=${taskIndex}&taskObj=${taskObj}`,
+      "http://localhost:3000/task/toggletask",
       {
-        headers: {
-          "Content-type": "application/x-www-form-urlencoded",
-        },
+        taskId: taskId, 
+        username: username, 
+        index: index
       }
     )
-    .then((response) => {
-      return dispatch(toggleTaskActionCreator(taskIndex));
+    .then(() => {
+      return dispatch(toggleTaskActionCreator(index));
     });
+    /* normally: fetch request to backend
+    response back will change state
+    
+
+    */
+
+
 };
-
-
-// `taskList=${taskList}&username=${username}`,
-      // // "http://localhost:3000/task/deletetask",
-      // // `username=${username}&taskList=${taskList}&index=${index}`,
-      // {
-      //   headers: {
-      //     "Content-type": "application/x-wwww-form-urlencoded",
-      //   },
-      // }

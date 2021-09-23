@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 import Tasks from './Tasks'
-import '../stylesheets/styles.css';
+import '../stylesheets/styles.scss';
 
 const TaskDisplay = props => {
   const tasks = [];

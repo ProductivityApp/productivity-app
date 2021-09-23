@@ -5,7 +5,7 @@ import TaskCreator from '../components/TaskCreator';
 import TaskDisplay from '../components/TaskDisplay';
 import * as actions from '../actions/actions';
 import * as filters from '../actions/filters';
-import '../stylesheets/styles.css';
+import '../stylesheets/styles.scss';
 
 const mapStateToProps = state => (
   {

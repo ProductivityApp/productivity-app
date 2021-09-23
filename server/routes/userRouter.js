@@ -1,5 +1,5 @@
 const express = require('express');
-const {addTask, deleteTask} = require('../controllers/databaseController');
+const {addTask, deleteTask, toggleTask} = require('../controllers/databaseController');
 const router = express.Router();
 
 // router.post('/addtask', addTask, (req, res) => {
@@ -14,4 +14,9 @@ router.post('/deletetask', deleteTask, (req, res) => {
   return res.sendStatus(200);
 })
 
-module.exports = router;
+router.patch('/toggletask', toggleTask, (req, res) => {
+  return res.sendStatus(200);
+})
+
+
+  module.exports = router;
