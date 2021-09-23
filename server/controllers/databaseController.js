@@ -16,7 +16,7 @@ databaseController.createUser = (req, res, next) => {
   //pw, salt, cb for success and error
   bcrypt.hash(req.body.password, 5, async (err, hash) => {
     try{
-   const createUser = await User.create({ username: `${req.body.username}`, password: `${req.body.password}`, tasks: []});
+   const createUser = await User.create({ username: `${req.body.username}`, password: hash, tasks: []});
 
     return next()
     }
@@ -29,8 +29,9 @@ databaseController.createUser = (req, res, next) => {
 
 databaseController.verifyPassword = async (req, res, next) => {
   try {
-    const userInfo = await models.User.findOne({username: `${req.body.username}`}).exec();
+    const userInfo = await User.findOne({username: `${req.body.username}`}).exec();
     const userHash = userInfo.password;
+    console.log(userInfo, 'the password', userHash);
     bcrypt.compare(req.body.password, userHash, (err, result) => {
       console.log(result)
       if (result === false) {
