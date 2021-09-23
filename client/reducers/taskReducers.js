@@ -15,8 +15,8 @@ export default function taskReducers(state = initialState, action) {
 
     case types.ADD_TASK: {
       const newTask = {
-        task: action.payload,
-        completed: false,
+        taskName: action.payload,
+        isCompleted: false,
       };
 
       taskList = state.taskList.slice();

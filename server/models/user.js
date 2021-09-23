@@ -1,6 +1,8 @@
 // connecting to mongoDB database
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const {MongoMemoryServer} = require('mongodb-memory-server');
+const mongod = new MongoMemoryServer();
 // const MONGO_URI = 'mongodb+srv://hpersau000:NoBiyvc2OOrhz27k@cluster0.ozszm.mongodb.net/Cluster0?retryWrites=true&w=majority';
 const MONGO_URI = 'mongodb+srv://janilya:FStDArOC5Poh6oFR@cluster0.ziwih.mongodb.net/productivityapp?retryWrites=true&w=majority';
 mongoose.connect(MONGO_URI, {

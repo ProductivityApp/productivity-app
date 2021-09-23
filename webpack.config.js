@@ -46,3 +46,6 @@ module.exports = {
     publicPath: '/',
   }
 };
+
+
+// "babel": "^6.23.0",
