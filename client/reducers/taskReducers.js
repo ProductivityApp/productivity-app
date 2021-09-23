@@ -73,7 +73,7 @@ export default function taskReducers(state = initialState, action) {
     }
 
     case types.DELETE_TASK: {
-      alert('Task has been successfully been deleted.')
+      alert('Task has successfully been deleted.')
       return {
         ...state,
         taskList,

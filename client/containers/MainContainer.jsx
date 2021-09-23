@@ -1,28 +1,51 @@
 /* eslint-disable */
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import LogIn from '../components/LogIn';
 import TaskContainer from './TaskContainer';
+import '../stylesheets/styles.css';
+import * as actions from '../actions/actions';
 
-const MainContainer = () => {
+const mapStateToProps = state => (
+  {
+    username: state.tasks.username,
+  }
+);
 
-    const username = useSelector( (state) => state.tasks.username);
-    console.log(`username in main container`, username)
-    let loggedIn = username ? true : false; 
+const mapDispatchToProps = dispatch => (
+  {
+    addUser: (username, password) => {
+      return dispatch(actions.addUser(username, password));
+    },
+    verifyUser: (username, password) => {
+      return dispatch(actions.verifyUser(username,password));
+    }
+  }
+)
+
+class MainContainer extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  
+  render(){
+    console.log(`username in main container`,this.props.username)
+    let loggedIn = this.props.username ? true : false; 
 
     if (loggedIn === false) 
       return(
         <div>
-          <LogIn />
+          <LogIn addUser={this.props.addUser} verifyUser={this.props.verifyUser} />
         </div>
       );
     else 
       return (
         <div>
-          <TaskContainer username={username} />
+          <TaskContainer username={this.props.username} />
         </div>
       )
+  }
 }
 
-export default MainContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);
 
