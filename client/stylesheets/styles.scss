@@ -30,6 +30,11 @@ div {
 
 } */
 
+// #taskBodyContainer {
+//   display: grid;
+//   grid-template-columns: auto, auto;
+// }
+
 .userInput {
   border-radius: 4px;
   border: 1px solid grey;
@@ -38,6 +43,7 @@ div {
 
 .taskList {
   color: rgb(12, 7, 43);
+  border: red;
   display: flex;
 }
 
@@ -56,10 +62,6 @@ div {
 td {
   vertical-align: middle;
 }
-.taskOverflow{
-max-height: 400px;
-overflow-y: scroll;
-}
 
 td.buttons {
   text-align: right;
@@ -72,3 +74,26 @@ th.header {
 input.filter {
   margin-right: 10px;
 }
+
+.completeCard{
+  background-color: rgba(159, 223, 159, 0.986); 
+  grid-column: 2 / 3;
+}
+
+.incompleteCard{
+  // background-color: white;
+  // grid-column: 1 / 2;
+}
+
+
+
+.TaskCreator{
+  // position: absolute;
+  // top: 0;
+}
+
+// .logout{
+//   position: absolute; 
+//   top: 0;
+//   right: 0;
+// }

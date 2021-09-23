@@ -8,7 +8,7 @@ const LogOut = () => {
   const dispatch = useDispatch();
   return(
     <div className='logout'>
-      <button onClick={() => dispatch(logOutUserActionCreator())}>Log Out</button>
+      <button className="btn btn-sm btn-outline-secondary" onClick={() => dispatch(logOutUserActionCreator())}>Log Out</button>
     </div>
   )
   
