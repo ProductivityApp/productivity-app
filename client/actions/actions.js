@@ -21,7 +21,10 @@ export const verifyUserActionCreator = (username, tasks=null) => ({
   },
 });
 
-
+export const logOutUserActionCreator = () => ({
+  type: types.LOG_OUT,
+  
+})
 //INCOMPLETE
 export const toggleTaskActionCreator = (taskId) => ({
   type: types.TOGGLE_TASK,

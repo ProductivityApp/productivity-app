@@ -41,6 +41,7 @@ class MainContainer extends React.Component {
       return (
         <div>
           <TaskContainer username={this.props.username} />
+          <LogOut username={this.props.username} />
         </div>
       )
   }
