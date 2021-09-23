@@ -33,7 +33,7 @@ const TaskCreator = (props) => {
       <h3>Create New Tasks</h3>
       <div className="input-group mb-3">
         <input type="text" id="newTask" onKeyDown = {handleInput} className="form-control userInput" placeholder="Add new task..." aria-label="Add new task..." aria-describedby="button-addon2"></input>
-        <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={() => {
+        <button className="btn btn-outline-primary" type="button" id="button-addon2" onClick={() => {
         return props.addTask(props.username, document.getElementById('newTask').value); //took out taskId -JB
       }}>Add Task</button>
       </div>

@@ -26,6 +26,22 @@ div {
   text-align: center;
 }
 
+td {
+  vertical-align: middle;
+}
+
+td.buttons {
+  text-align: right;
+}
+
+th.header {
+  margin-right: 30px;
+}
+
+input.filter {
+  margin-right: 10px;
+}
+
 /* #root {
 
 } */
