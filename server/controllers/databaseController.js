@@ -7,14 +7,14 @@ const {User, Task} = require('../models/user');
 
 // creates a user in the database where username is equal to the value sent from the front end
 // sends user's tasks back to front end, which will initially be a property 'task' with the value []
-databaseController.createUser = async (req, res, next) => {
+databaseController.createUser = (req, res, next) => {
 
   console.log('did we get to this controller')
   // if (req.body.password.length < 5) {
   //   return next(res.locals.errorMessage = {errorMessage: 'Password must be five characters long'});
   // }
   //pw, salt, cb for success and error
-  bcrypt.hash(req.body.password, 5, (err, hash) => {
+  bcrypt.hash(req.body.password, 5, async (err, hash) => {
     try{
    const createUser = await User.create({ username: `${req.body.username}`, password: `${req.body.password}`, tasks: []});
 
