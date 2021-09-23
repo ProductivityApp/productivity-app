@@ -1,12 +1,17 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { logOutUser } from './actions/actions';
+import { logOutUserActionCreator } from '../actions/actions';
 
-const dispatch = useDispatch();
 
-const LogOut = props => {
-  const { username } = props; 
-  dispatch(logOutUser)
+
+const LogOut = () => {
+  const dispatch = useDispatch();
+  return(
+    <div className='logout'>
+      <button onClick={() => dispatch(logOutUserActionCreator())}>Log Out</button>
+    </div>
+  )
+  
 
 }
 

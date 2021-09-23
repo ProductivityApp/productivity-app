@@ -21,9 +21,11 @@ databaseController.createUser = async (req, res, next) => {
 
 // gets a specified user (from req.body) and logs their task list in res.locals.userTasks
 databaseController.getUserTasks = async (req, res, next) => {
+  
     try {
+      console.log(req.body);
       const user = await User.findOne({username: `${req.body.username}`}).exec();
-      // console.log("getUserTasks",user);
+      console.log("getUserTasks",user);
       res.locals.user = user;
       return next();
     } catch (error) {

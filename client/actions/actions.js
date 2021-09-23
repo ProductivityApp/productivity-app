@@ -23,7 +23,6 @@ export const verifyUserActionCreator = (username, tasks=null) => ({
 
 export const logOutUserActionCreator = () => ({
   type: types.LOG_OUT,
-  
 })
 //INCOMPLETE
 export const toggleTaskActionCreator = (taskId) => ({
@@ -43,6 +42,10 @@ after receiving the response, dispatch action to reducer
 export the func to be used in the front end
 */
 
+export const oauth = () => (dispatch, getState) => {
+  axios.get('http://localhost:3000/github/oauth')
+  .then(res => console.log('FROM OUATH', res));
+}
 // Add a new user
 export const addUser = (username, password) => (dispatch, getState) => {
   axios

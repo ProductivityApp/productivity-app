@@ -1,5 +1,5 @@
 const path = require('path');
-const webpack = require('webpack');
+// const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -42,6 +42,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/task': 'http://localhost:3000',
+      '/github': 'http://localhost:3000',
     },
     publicPath: '/',
   }

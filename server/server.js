@@ -7,6 +7,8 @@ const signUpRouter = require('./routes/signUpRouter')
 const userRouter = require('./routes/userRouter')
 const logInRouter = require('./routes/logInRouter')
 
+const oauthRouter = require('./routes/oauthRouter');
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -19,11 +21,20 @@ app.all('/*',function(req, res, next) {
 const { json } = require('express');
 const fs = require('fs');
 
+app.use('/build', express.static(path.join(__dirname, '../build')));
+
+app.use(express.static(path.resolve(__dirname, '../client')));
+
+
 //WTF IS THAT?
 app.get('/', (req, res) => {
   console.log('hello app.get server side');
-  res.sendStatus(200);
+  // res.sendStatus(200);
+  return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
 });
+
+app.use('/github', oauthRouter);
+
 
 app.use('/signup', signUpRouter);
 
@@ -33,7 +44,7 @@ app.use('/task', userRouter);
 // when user tries to log in, check to see user exists if user exists redirect to userProfile endpoint
 app.use('/login', logInRouter);
 
-app.use(express.static(path.resolve(__dirname, '../client')));
+
 
 /**
  * configire express global error handler 

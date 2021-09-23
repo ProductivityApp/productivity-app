@@ -1,8 +1,11 @@
 /* eslint-disable */
 import React from 'react';
+import {BrowserRouter, Route, Switch} from "react-router-dom";
+// import {Route, Router} from 'react-router';
 import { connect } from 'react-redux';
 import LogIn from '../components/LogIn';
 import TaskContainer from './TaskContainer';
+import LogOut from '../components/LogOut';
 import * as actions from '../actions/actions';
 
 const mapStateToProps = state => (
@@ -18,7 +21,8 @@ const mapDispatchToProps = dispatch => (
     },
     verifyUser: (username, password) => {
       return dispatch(actions.verifyUser(username,password));
-    }
+    },
+    oauth: () => dispatch(actions.oauth())
   }
 )
 
@@ -34,14 +38,25 @@ class MainContainer extends React.Component {
     if (loggedIn === false) 
       return(
         <div>
-          <LogIn addUser={this.props.addUser} verifyUser={this.props.verifyUser} />
+          <div>
+            <LogIn addUser={this.props.addUser} verifyUser={this.props.verifyUser} />
+          </div>
+
+          <div><a href='/github/oauth'>CLICK HERE</a></div>
         </div>
       );
     else 
       return (
         <div>
-          <TaskContainer username={this.props.username} />
-          <LogOut username={this.props.username} />
+          {/* <BrowserRouter>
+          <Switch >
+            <Route exact path='/dashboard'>  */}
+         
+              <LogOut />
+              <TaskContainer username={this.props.username} />
+            {/* </Route>
+          </Switch>
+          </BrowserRouter> */}
         </div>
       )
   }
