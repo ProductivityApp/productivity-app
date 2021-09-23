@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import LogIn from '../components/LogIn';
 import TaskContainer from './TaskContainer';
-import '../stylesheets/styles.css';
+import '../stylesheets/styles.scss';
 import * as actions from '../actions/actions';
 
 const mapStateToProps = state => (

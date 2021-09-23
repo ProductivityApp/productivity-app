@@ -57,7 +57,27 @@ databaseController.deleteTask = async (req, res, next) => {
 };
 
 
-
+databaseController.toggleTask = async (req, res, next) => {
+  const filter = { username: `${req.body.username}` };
+  try {
+  // example from Stack Overflow:
+  //   db.collection.update(
+  //     { "videos.id": 2 },
+  //     { "$set": { "videos.$.thumbnail" : "newThumbnail.jpg" } }
+  //  ){tasks: {isComplete: `${!isComplete}`}}
+  
+  // find relevant user -- req.body.username ✅
+  // find relevant task -- req.body.taskName ✅
+  // update isComplete: ❌ -- work on in AM. SF/ JH 9.22 11:21PM
+    // find out what it is now AND
+    // change it to the opposite
+    const user = await models.User.updateOne(filter, {$set: {"tasks.$.isComplete":}}).exec();
+    // do we have to send back anything? KK
+    return next();
+  } catch (error) {
+    return next({errorMessage: 'error deleting task'})
+  }
+};
 
 
 

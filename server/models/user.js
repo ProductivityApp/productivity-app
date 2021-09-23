@@ -15,9 +15,7 @@ const userSchema = new Schema({
     username: {type: String, required:true, unique:true, minLength:1}, 
     password: {type: String, required:true, minLength:1},
     tasks: {type: Array, required:true}, 
-    
 });
 
 const User = mongoose.model('User',userSchema);
-
 module.exports = {User};

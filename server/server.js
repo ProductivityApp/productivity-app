@@ -33,6 +33,8 @@ app.use('/task', userRouter);
 // when user tries to log in, check to see user exists if user exists redirect to userProfile endpoint
 app.use('/login', logInRouter);
 
+
+
 app.use(express.static(path.resolve(__dirname, '../client')));
 
 /**

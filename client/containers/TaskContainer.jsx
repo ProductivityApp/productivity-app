@@ -5,7 +5,7 @@ import TaskCreator from '../components/TaskCreator';
 import TaskDisplay from '../components/TaskDisplay';
 import * as actions from '../actions/actions';
 import * as filters from '../actions/filters';
-import '../stylesheets/styles.css';
+import '../stylesheets/styles.scss';
 
 const mapStateToProps = state => (
   {
@@ -20,8 +20,8 @@ const mapDispatchToProps = dispatch => ({
   addTask: (username, task) => {
     return dispatch(actions.addTask(username, task));
   },
-  toggleTask: (taskId) => {
-    return dispatch(actions.toggleTaskActionCreator(taskId));
+  toggleTask: (username,taskName,taskIndex) => {
+    return dispatch(actions.toggleTaskActionCreator(username, taskName, taskIndex));
   }
 });
 
@@ -36,7 +36,7 @@ class TaskContainer extends React.Component {
     return (
         <div>
         <TaskCreator username={this.props.username} addTask={this.props.addTask}/>
-        <TaskDisplay taskList={this.props.filterList} toggleTask={this.props.toggleTask}/>
+        <TaskDisplay username={this.props.username} taskList={this.props.filterList} toggleTask={this.props.toggleTask}/>
       </div>
     )
     } 
@@ -44,7 +44,7 @@ class TaskContainer extends React.Component {
         return (
             <div>
             <TaskCreator username={this.props.username} addTask={this.props.addTask}/>
-            <TaskDisplay taskList={this.props.taskList} toggleTask={this.props.toggleTask}/>
+            <TaskDisplay username={this.props.username} taskList={this.props.taskList} toggleTask={this.props.toggleTask}/>
           </div>
     )
     }

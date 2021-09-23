@@ -126,13 +126,12 @@ export const deleteTask = (username, taskName) => (dispatch, getState) => {
     });
 };
 
-export const toggleTask = (taskIndex, taskObj) => (dispatch, getState) => {
-  
+export const toggleTask = (username, taskName, taskIndex) => (dispatch, getState) => {
   
   axios
     .patch(
-      "http://localhost:3000/toggleTask",
-      `taskIndex=${taskIndex}&taskObj=${taskObj}`,
+      "http://localhost:3000/task/toggletask",
+      `taskIndex=${taskName}&username=${username}`,
       {
         headers: {
           "Content-type": "application/x-www-form-urlencoded",
@@ -140,6 +139,15 @@ export const toggleTask = (taskIndex, taskObj) => (dispatch, getState) => {
       }
     )
     .then((response) => {
+      console.log("response from the toggleTasks: ", response);
       return dispatch(toggleTaskActionCreator(taskIndex));
     });
+    /* normally: fetch request to backend
+    response back will change state
+    
+
+    */
+
+
 };
+

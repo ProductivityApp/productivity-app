@@ -2,7 +2,7 @@
 import React from 'react';
 import {useDispatch } from 'react-redux';
 import { addUser, verifyUser } from '../actions/actions';
-import '../stylesheets/styles.css';
+import '../stylesheets/styles.scss';
 
 const LogIn = () => {
   const dispatch = useDispatch();

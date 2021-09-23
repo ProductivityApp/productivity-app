@@ -58,12 +58,20 @@ export default function taskReducers(state = initialState, action) {
 
 // WE WILL COME BACK TO THIS LATER - 9/21 JB
     case types.TOGGLE_TASK: {
+      console.log('hi');
       // if its false change it to true and vice versa
 
       // access the task list at the input index, access the isComplete key in that object
-      taskIndex = action.payload;
+      const taskIndex = action.payload;
+      const taskList = state.taskList.slice(); // making a copy of current task list array in state
+
       taskList[taskIndex].isComplete = !taskList[taskIndex].isComplete;
-    
+      console.log(`taskList[taskIndex].isComplete = ${taskList[taskIndex].isComplete}`);
+      
+      // switch styling by changing classes of div
+      // document.querySelector('[data-switch-dark]').addEventListener('click', function() {
+      //   document.body.classList.toggle('dark');
+      // });
       
       // update task list at the end 
       return {
