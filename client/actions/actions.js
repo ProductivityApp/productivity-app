@@ -133,21 +133,19 @@ export const deleteTask = (username, taskId, index) => (dispatch, getState) => {
 
 };
 
-export const toggleTask = (username, taskName, taskIndex) => (dispatch, getState) => {
+export const toggleTask = (username, taskId, taskIndex, ) => (dispatch, getState) => {
   
   axios
     .patch(
       "http://localhost:3000/task/toggletask",
-      `taskIndex=${taskName}&username=${username}`,
       {
-        headers: {
-          "Content-type": "application/x-www-form-urlencoded",
-        },
+        taskId: taskId, 
+        username: username, 
+        index: index
       }
     )
-    .then((response) => {
-      console.log("response from the toggleTasks: ", response);
-      return dispatch(toggleTaskActionCreator(taskIndex));
+    .then(() => {
+      return dispatch(toggleTaskActionCreator(index));
     });
     /* normally: fetch request to backend
     response back will change state
