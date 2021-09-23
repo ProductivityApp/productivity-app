@@ -4,29 +4,27 @@ import { connect } from 'react-redux';
 import TaskCreator from '../components/TaskCreator';
 import TaskDisplay from '../components/TaskDisplay';
 import * as actions from '../actions/actions';
+import * as filters from '../actions/filters';
 import '../stylesheets/styles.css';
 
 const mapStateToProps = state => (
-  // provide pertinent state here
-  // what are the properties of state that this component wants to subscribe to?
   {
     taskList: state.tasks.taskList,
-    taskId: state.tasks.taskId
+    taskId: state.tasks.taskId,
+    filterList: state.filters.filterList,
+    name_filter: state.filters.name_filter
 });
 
 const mapDispatchToProps = dispatch => ({
-  // create functions that will dispatch action creators
-  //remove taskId below -- JB
+ 
   addTask: (username, task) => {
-    // console.log(`props`,this.propzs)
-    console.log(username)
-    // this.onSave(task)
-    // return dispatch(actions.addTaskActionCreator(task))
-    return dispatch(actions.saveTasks(username, task));
+    return dispatch(actions.addTask(username, task));
   },
-  // onSave: () => {console.log('onSave works on button click')}
-  toggleTask: (taskId) => {
-    return dispatch(actions.toggleTaskActionCreator(taskId));
+  toggleTask: (index) => {
+    return dispatch(actions.toggleTaskActionCreator(index));
+  },
+  deleteTask: (username, taskId, index) => {
+    return dispatch(actions.deleteTask(username, taskId, index));
   }
 });
 
@@ -37,12 +35,22 @@ class TaskContainer extends React.Component {
   }
   
   render() {
+    if(this.props.name_filter){
     return (
-      <div>
+        <div>
         <TaskCreator username={this.props.username} addTask={this.props.addTask}/>
-        <TaskDisplay taskList={this.props.taskList} toggleTask={this.props.toggleTask}/>
+        <TaskDisplay taskList={this.props.filterList} toggleTask={this.props.toggleTask} deleteTask={this.props.deleteTask}/>
       </div>
     )
+    } 
+    if(!this.props.name_filter){
+        return (
+            <div>
+            <TaskCreator username={this.props.username} addTask={this.props.addTask}/>
+            <TaskDisplay username={this.props.username} taskList={this.props.taskList} toggleTask={this.props.toggleTask} deleteTask={this.props.deleteTask}/>
+          </div>
+    )
+    }
   }
 }
 

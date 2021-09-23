@@ -9,16 +9,14 @@ const initialState = {
 
 export default function taskReducers(state = initialState, action) {
   let taskList;
+  let index;
 
   switch (action.type) {
 //***************************************************************************************    
 
     case types.ADD_TASK: {
-      const newTask = {
-        task: action.payload,
-        completed: false,
-      };
-
+      const newTask = action.payload;
+      console.log(newTask);
       taskList = state.taskList.slice();
       taskList.push(newTask);
 
@@ -37,7 +35,7 @@ export default function taskReducers(state = initialState, action) {
     }
 //***************************************************************************************
 
-    case types.CHECK_USER: {
+    case types.VERIFY_USER: {
       const { username, tasks } = action.payload;
       console.log('THIS IS IN REDUCER AFTER LOGGING IN', action.payload);
       /* {username: string,
@@ -58,11 +56,37 @@ export default function taskReducers(state = initialState, action) {
 
 // WE WILL COME BACK TO THIS LATER - 9/21 JB
     case types.TOGGLE_TASK: {
-      // access the isCompleted property of the object with key taskId
-      console.log(state.taskId);
-      console.log(state.taskList);
       // if its false change it to true and vice versa
+
+      // access the task list at the input index, access the isComplete key in that object
+      taskIndex = action.payload;
+      taskList[taskIndex].isComplete = !taskList[taskIndex].isComplete;
+    
+      
+      // update task list at the end 
+      return {
+        ...state,
+        taskList,
+      };
     }
+//***************************************************************************************    
+
+    case types.DELETE_TASK: {
+      alert('Task has successfully been deleted.')
+
+      index = action.payload;
+      taskList = state.taskList.slice();
+ 
+      taskList.splice(index, 1);
+      console.log('TASKREDUCER', taskList);
+      console.log(state);
+      return {
+        ...state,
+        taskList,
+      }
+    }
+    
+//***************************************************************************************    
     default: {
       return state;
     }

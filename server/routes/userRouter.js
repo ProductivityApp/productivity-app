@@ -1,9 +1,17 @@
 const express = require('express');
-const {addTask} = require('../controllers/databaseController');
+const {addTask, deleteTask} = require('../controllers/databaseController');
 const router = express.Router();
 
-router.post('/', addTask, (req, res) => {
-    return res.sendStatus(200);
-  });
+// router.post('/addtask', addTask, (req, res) => {
+//     return res.sendStatus(200);
+//   });
 
-  module.exports = router;
+router.post('/addtask', addTask, (req, res) => {
+  return res.status(200).json({taskAdded: res.locals.taskAdded});
+});
+
+router.post('/deletetask', deleteTask, (req, res) => {
+  return res.sendStatus(200);
+})
+
+module.exports = router;

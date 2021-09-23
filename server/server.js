@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.all('/*',function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-  res.header("Access-Control-Allow-Headers","X-Requested-With");
+  res.header("Access-Control-Allow-Headers","X-Requested-With, Content-Type");
   next();
 });
 
@@ -27,8 +27,8 @@ app.get('/', (req, res) => {
 
 app.use('/signup', signUpRouter);
 
-// when the frontend / user adds a new task, add it to the database
-app.use('/addtask', userRouter);
+// when the frontend / user adds/deletes a task, add/delete it to/from the database
+app.use('/task', userRouter);
 
 // when user tries to log in, check to see user exists if user exists redirect to userProfile endpoint
 app.use('/login', logInRouter);
