@@ -41,7 +41,7 @@ module.exports = {
   },
   devServer: {
     proxy: {
-      '/api': 'http://localhost:3000',
+      '/task': 'http://localhost:3000',
     },
     publicPath: '/',
   }

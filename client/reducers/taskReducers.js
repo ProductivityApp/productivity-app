@@ -14,10 +14,7 @@ export default function taskReducers(state = initialState, action) {
 //***************************************************************************************    
 
     case types.ADD_TASK: {
-      const newTask = {
-        taskName: action.payload,
-        isComplete: false,
-      };
+      const newTask = action.payload;
 
       taskList = state.taskList.slice();
       taskList.push(newTask);
@@ -71,14 +68,20 @@ export default function taskReducers(state = initialState, action) {
         taskList,
       };
     }
+//***************************************************************************************    
 
     case types.DELETE_TASK: {
       alert('Task has successfully been deleted.')
+      taskList = action.payload;
+      console.log('TASKREDUCER', taskList);
+      console.log(state);
       return {
         ...state,
         taskList,
       }
     }
+    
+//***************************************************************************************    
     default: {
       return state;
     }

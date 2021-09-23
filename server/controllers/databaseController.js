@@ -24,7 +24,7 @@ databaseController.createUser = async (req, res, next) => {
 databaseController.getUserTasks = async (req, res, next) => {
     try {
       const user = await models.User.findOne({username: `${req.body.username}`}).exec();
-      console.log("getUserTasks",user);
+      // console.log("getUserTasks",user);
       res.locals.user = user;
       return next();
     } catch (error) {
@@ -36,6 +36,7 @@ databaseController.getUserTasks = async (req, res, next) => {
 databaseController.addTask = async (req, res, next) => {
   const filter = { username: `${req.body.username}`};
   const newTask = {taskName:req.body.taskName, isComplete:false}
+  // console.log('addTask', req.body);
   try {
     const user = await models.User.updateOne(filter,{$push:{tasks:newTask}}).exec();
     res.locals.taskAdded = newTask;
@@ -46,13 +47,23 @@ databaseController.addTask = async (req, res, next) => {
 };
 
 databaseController.deleteTask = async (req, res, next) => {
-  const filter = { username: `${req.body.username}` };
+  const userToFind = { username: `${req.body.username}` };
+  console.log(req.body);
+  console.log(req.body.username);
+  console.log(req.body.taskList);
   try {
-    const user = await models.User.updateOne(filter, {$pull: {tasks: {taskName: `${req.body.task}`}}}).exec();
+    // const user = await models.User.updateOne(filter, {$pull: {tasks: {taskName: `${req.body.task}`}}}).exec();
     // do we have to send back anything? KK
+
+    const user = await models.User.findOneAndUpdate(userToFind, {tasks: req.body.taskList}, {new:true}).exec();
+    console.log('DELETETASK', user);
+    /*
+    { username: string, password: string, tasks: [{}, {}, {}]}
+    */
+   
     return next();
   } catch (error) {
-    return next({errorMessage: 'error deleting task'})
+    return next({errorMessage: 'error deleting task'})  
   }
 };
 

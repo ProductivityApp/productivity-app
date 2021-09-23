@@ -6,13 +6,12 @@ const router = express.Router();
 //     return res.sendStatus(200);
 //   });
 
-  router.post('/addtask', addTask, (req, res) => {
-    return res.status(200).json({taskAdded: res.locals.taskAdded});
-  });
+router.post('/addtask', addTask, (req, res) => {
+  return res.status(200).json({taskAdded: res.locals.taskAdded});
+});
 
-router.delete('/deletetask', deleteTask, (req, res) => {
+router.post('/deletetask', deleteTask, (req, res) => {
   return res.sendStatus(200);
 })
 
-
-  module.exports = router;
+module.exports = router;
