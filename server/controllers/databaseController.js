@@ -24,7 +24,9 @@ databaseController.getUserTasks = async (req, res, next) => {
   
     try {
       console.log(req.body);
-      const user = await User.findOne({username: `${req.body.username}`}).exec();
+      const username = req.body ? req.body.username : res.locals.username;
+      console.log(username);
+      const user = await User.findOne({username: `${username}`}).exec();
       console.log("getUserTasks",user);
       res.locals.user = user;
       return next();

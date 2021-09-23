@@ -37,7 +37,7 @@ const oauthController = {
       const { access_token } = await fetchedResponse.json();
       console.log("ACCESS TOKEN IN GET TOKEN", access_token);
       res.locals.token = access_token;
-      res.locals.username = 'test';
+      res.locals.username = 'newuser10';
       return next();
     } catch(err) {
       return next(err);

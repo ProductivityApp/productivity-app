@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React from 'react';
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+// import {BrowserRouter, Route, Switch} from "react-router-dom";
 // import {Route, Router} from 'react-router';
 import { connect } from 'react-redux';
 import LogIn from '../components/LogIn';
@@ -42,7 +42,7 @@ class MainContainer extends React.Component {
             <LogIn addUser={this.props.addUser} verifyUser={this.props.verifyUser} />
           </div>
 
-          <div><a href='/github/oauth'>CLICK HERE</a></div>
+          <div><a href='http://localhost:3000/github/oauth'>CLICK HERE</a></div>
         </div>
       );
     else 

@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const port = 3000;
+const {getUserTasks} = require('./controllers/databaseController');
 //REQUIRED ROUTERS
 const signUpRouter = require('./routes/signUpRouter')
 const userRouter = require('./routes/userRouter')
@@ -27,7 +28,7 @@ app.use(express.static(path.resolve(__dirname, '../client')));
 
 
 //WTF IS THAT?
-app.get('/', (req, res) => {
+app.use('/', getUserTasks, (req, res) => {
   console.log('hello app.get server side');
   // res.sendStatus(200);
   return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
