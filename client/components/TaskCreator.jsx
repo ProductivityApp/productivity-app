@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import '../stylesheets/styles.css';
+import '../stylesheets/styles.scss';
 import { addTask } from '../actions/actions';
 import * as filters from '../actions/filters';
 import Filter from './Filter';
