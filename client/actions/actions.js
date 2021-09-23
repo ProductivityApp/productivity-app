@@ -23,9 +23,9 @@ export const verifyUserActionCreator = (username, tasks=null) => ({
 
 
 //INCOMPLETE
-export const toggleTaskActionCreator = (taskId) => ({
+export const toggleTaskActionCreator = (index) => ({
   type: types.TOGGLE_TASK,
-  payload: taskIndex
+  payload: index
 });
 
 
@@ -133,30 +133,16 @@ export const deleteTask = (username, taskId, index) => (dispatch, getState) => {
 
 };
 
-export const toggleTask = (taskIndex, taskObj) => (dispatch, getState) => {
-  
-  
+export const toggleTask = (taskId,index) => (dispatch,getState) => {
+  console.log("taskId and Index",taskId,index)
   axios
-    .patch(
-      "http://localhost:3000/toggleTask",
-      `taskIndex=${taskIndex}&taskObj=${taskObj}`,
+    .post(
+      "http://localhost:3000/task/toggletask",
       {
-        headers: {
-          "Content-type": "application/x-www-form-urlencoded",
-        },
+        taskId: taskId, 
       }
     )
-    .then((response) => {
-      return dispatch(toggleTaskActionCreator(taskIndex));
+    .then(() => {
+      return dispatch(toggleTaskActionCreator(index));
     });
 };
-
-
-// `taskList=${taskList}&username=${username}`,
-      // // "http://localhost:3000/task/deletetask",
-      // // `username=${username}&taskList=${taskList}&index=${index}`,
-      // {
-      //   headers: {
-      //     "Content-type": "application/x-wwww-form-urlencoded",
-      //   },
-      // }

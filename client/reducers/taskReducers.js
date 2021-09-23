@@ -59,8 +59,9 @@ export default function taskReducers(state = initialState, action) {
       // if its false change it to true and vice versa
 
       // access the task list at the input index, access the isComplete key in that object
-      taskIndex = action.payload;
-      taskList[taskIndex].isComplete = !taskList[taskIndex].isComplete;
+      index = action.payload;
+      taskList = state.taskList.slice();
+      taskList[index].isComplete = !taskList[index].isComplete;
     
       
       // update task list at the end 
@@ -76,7 +77,6 @@ export default function taskReducers(state = initialState, action) {
 
       index = action.payload;
       taskList = state.taskList.slice();
- 
       taskList.splice(index, 1);
       console.log('TASKREDUCER', taskList);
       console.log(state);

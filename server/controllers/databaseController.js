@@ -69,6 +69,19 @@ databaseController.deleteTask = async (req, res, next) => {
   }
 };
 
+databaseController.toggleTask = async (req, res, next) => {
+  const taskId = req.body.taskId;
+  try {
+    const task = await Task.findOne({_id: taskId}).exec();
+    const newTask = await Task.findOneAndUpdate({_id: taskId},{$set: {isComplete: !task.isComplete}}, {new:true}).exec();
+    console.log(newTask);
+    return next();
+  } catch (error) {
+    return next({errorMessage: 'error toggling task'})
+  }
+};
+ 
+
 
 
 

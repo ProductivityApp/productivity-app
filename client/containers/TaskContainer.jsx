@@ -20,8 +20,8 @@ const mapDispatchToProps = dispatch => ({
   addTask: (username, task) => {
     return dispatch(actions.addTask(username, task));
   },
-  toggleTask: (index) => {
-    return dispatch(actions.toggleTaskActionCreator(index));
+  toggleTask: (taskId, index) => {
+    return dispatch(actions.toggleTask(taskId, index));
   },
   deleteTask: (username, taskId, index) => {
     return dispatch(actions.deleteTask(username, taskId, index));
