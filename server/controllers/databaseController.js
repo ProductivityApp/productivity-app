@@ -14,9 +14,9 @@ databaseController.createUser =  async (req, res, next) => {
   //   return next(res.locals.errorMessage = {errorMessage: 'Password must be five characters long'});
   // }
   //pw, salt, cb for success and error
-  bcrypt.hash(req.body.password, 5, (err, hash) => {
+  bcrypt.hash(req.body.password, 5, async (err, hash) => {
     try{
-   const createUser =  User.create({ username: req.body.username, password: req.body.password, tasks: []});
+   const createUser = await User.create({ username: `${req.body.username}`, password: hash, tasks: []});
 
     return next()
     }

@@ -80,8 +80,10 @@ export const verifyUser = (username, password) => (dispatch, getState) => {
       }
     )
     .then((response) => {
-      if (response.data.hasOwnProperty("errorMessage"))
+      if (response.data.hasOwnProperty("errorMessage")){
+        console.log('FIND THE ERROR', response.data.errorMessage)
         return alert("The username/password you've entered is incorrect");
+      }
       console.log("WHEN LOGGED IN, WE RECEIVE THIS", response.data);
       const { username, tasks } = response.data;
       if ( tasks.length === 0) return dispatch(verifyUserActionCreator( username));
