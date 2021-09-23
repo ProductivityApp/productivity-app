@@ -1,37 +1,32 @@
 /* eslint-disable */
 import React from 'react';
-import '../stylesheets/styles.css';
+import {useDispatch } from 'react-redux';
+import { addUser, verifyUser } from '../actions/actions';
+import '../stylesheets/styles.scss';
 
-class LogIn extends React.Component {
-  constructor(props){
-    super(props);
-  }
-  render() {
-    // console.log(`this is login props ${this.props.addUser}`);
-    return (
-      <div>
-        Username: <input type ="text" id="usernameInput" className="userInput"/><br />
-        Password: <input type="password" id="passwordInput" className="userInput"/><br />
-      {/* trigger an action to POST input from username and password to backend
-      
-      */}
-        <button className="btn btn-sm btn-outline-primary" onClick={() => {
-          return this.props.addUser(document.getElementById('usernameInput').value, document.getElementById('passwordInput').value);
-        }}>Sign up
+const LogIn = () => {
+  const dispatch = useDispatch();
+  
+  return (
+    <div>
+      Username: <input type ="text" id="usernameInput" className="userInput" placeholder='Enter your username'/><br />
+      Password: <input type="password" id="passwordInput" className="userInput" placeholder='Enter your password'/><br />
+
+    {/* trigger an action to POST input from username and password to backend*/}
+      <button className="btn btn-sm btn-outline-primary" onClick={() => {
+          return dispatch(addUser(document.getElementById('usernameInput').value, document.getElementById('passwordInput').value))}} >
           
-        </button>
-      {/* trigger an action to POST input from username and password to backend
+        Sign up    
+      </button>
+    
+    {/* trigger an action to POST input from username and password to backend */}
+      <button className="btn btn-sm btn-outline-secondary" onClick={() => {
+          return dispatch(verifyUser(document.getElementById('usernameInput').value, document.getElementById('passwordInput').value))}} >
+        Log in
+      </button>
       
-      */}
-        <button
-          className="btn btn-sm btn-outline-secondary"
-          onClick={() => {
-            return this.props.checkUser(document.getElementById('usernameInput').value, document.getElementById('passwordInput').value);
-          }}>Log in
-        </button>
-      </div>
-    )
-  }
+    </div>
+  )
 };
 
 export default LogIn;

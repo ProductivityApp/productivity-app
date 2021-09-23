@@ -1,14 +1,15 @@
 /* eslint-disable */
 import React from 'react';
-import '../stylesheets/styles.css';
 
 const Tasks = (props) => {
-  // console.log(`task props ${props.taskList}`)
-  console.log(props);
+  const {username, taskId, index} = props;
+  console.log('NEW TASK', props.taskName);
   return (
     <div>
       {/* when the button is clicked isCompleted should toggle between true/false */}
-      <button onClick={()=>{return props.toggleTask(props.id)}}type="button" className="list-group-item list-group-item-action">{props.taskName}</button>
+      Task: {props.taskName}
+      <button onClick={()=>{return props.toggleTask(taskId, index)}}type="button" className="list-group-item list-group-item-action">Mark as Complete</button>
+      <button onClick={()=>{return props.deleteTask(username, taskId, index)}}type="button" className="list-group-item list-group-item-action">Delete</button>
     </div>
   )
 }

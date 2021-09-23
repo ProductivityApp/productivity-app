@@ -1,55 +1,53 @@
 /* eslint-disable */
-import React, { Component } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
-import '../stylesheets/styles.css';
-import { saveTasks } from '../reducers/taskReducers.js';
+import '../stylesheets/styles.scss';
+import { addTask } from '../actions/actions';
+import * as filters from '../actions/filters';
+import Filter from './Filter';
+import { connect } from 'react-redux';
 
-
-// class TaskCreator extends Component {
-
-//   render(){
-//     const onSave = dispatch => {
-//       dispatch(saveTasks());
-//     }
-//     return(
-//       <div>
-//         <h3>Create New Tasks</h3>
-//         <input type='text' id='newTask'></input>
-//         {/* <input type='button' id='newTask' onClick={() => props.addTask('hello')}> Add Task</input> */}
-//         <button onClick={() => {
-//           onSave();
-//           return props.addTask(document.getElementById('newTask').value); 
-//         }
-//         }>Add Task</button>
-//       </div>
-//     )
-//   }
-// }
-// const TaskCreator = props =>  {
-class TaskCreator extends Component {
-  // dispatch = useDispatch()
-
-  // onSave = (dispatch) => {
-  //   this.dispatch(saveTasks());
-  // }
-  // constructor(props){
-  //   super(props);
-  // }
-
-  render() {
-    // console.log('this is props.taskId', this.props.taskId)
-    return(
-      <div>
-        <h3>Create New Tasks</h3>
-        <div className="input-group mb-3">
-          <input type="text" id="newTask" className="form-control userInput" placeholder="Add new task..." aria-label="Add new task..." aria-describedby="button-addon2"></input>
-          <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={() => {
-          return this.props.addTask(this.props.username, document.getElementById('newTask').value); //took out taskId -JB
-        }}>Add Task</button>
-        </div>
-      </div>
-    )
+const mapDispatchToProps = dispatch => ({
+  addFilter: (filterType,taskList,currentInput) => {
+    return dispatch(filters.filterNameActionCreator(filterType,taskList,currentInput))
+  },
+  liveFilterName: (filterType,taskList,currentInput) => {
+    return dispatch(filters.liveFilterNameActionCreator(filterType,taskList,currentInput));
   }
+});
+
+const mapStateToProps = state => ({
+  taskList: state.tasks.taskList,
+});
+
+const TaskCreator = (props) => {
+  
+  const handleCheck = (e) =>{
+  props.addFilter(e,props.taskList,document.getElementById('newTask').value)
+  }
+  const handleInput = () =>{
+    props.liveFilterName("BY_NAME_LIVE",props.taskList,document.getElementById('newTask').value)
+  }
+  const isTaskNameUnique = () => {
+    const newInput =  document.getElementById('newTask').value;
+    let unique = true;
+    for(let i = 0; i < props.taskList.length; i++){
+      if(props.taskList[i].taskName === newInput) unique = false;
+      break;
+    }
+    if(unique) props.addTask(props.username, newInput);
+  }
+  return(
+    <div>
+      <h3>Create New Tasks</h3>
+      <div className="input-group mb-3">
+        <input type="text" id="newTask" onKeyDown = {handleInput} className="form-control userInput" placeholder="Add new task..." aria-label="Add new task..." aria-describedby="button-addon2"></input>
+        <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={isTaskNameUnique} //took out taskId -JB
+      >Add Task</button>
+      </div>
+      <Filter handleCheck={handleCheck} />
+    </div>
+  )
 }
 
-export default TaskCreator;
+export default connect(mapStateToProps, mapDispatchToProps)(TaskCreator);
