@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import LogIn from '../components/LogIn';
 import TaskContainer from './TaskContainer';
+import LogOut from '../components/LogOut';
 import '../stylesheets/styles.scss';
 import * as actions from '../actions/actions';
 
@@ -41,6 +42,7 @@ class MainContainer extends React.Component {
     else 
       return (
         <div>
+          <LogOut />
           <TaskContainer username={this.props.username} />
         </div>
       )

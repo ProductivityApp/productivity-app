@@ -53,6 +53,13 @@ export default function taskReducers(state = initialState, action) {
     }
 
 //***************************************************************************************    
+case types.LOG_OUT: {
+  return {
+    username: null, 
+    taskList: []
+  };
+}
+//***************************************************************************************    
 
 // WE WILL COME BACK TO THIS LATER - 9/21 JB
     case types.TOGGLE_TASK: {
