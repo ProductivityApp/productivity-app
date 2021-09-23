@@ -7,9 +7,31 @@ const Tasks = (props) => {
   return (
     <div>
       {/* when the button is clicked isCompleted should toggle between true/false */}
-      Task: {props.taskName}
-      <button onClick={()=>{return props.toggleTask(taskId, index)}}type="button" className="list-group-item list-group-item-action">Mark as Complete</button>
-      <button onClick={()=>{return props.deleteTask(username, taskId, index)}}type="button" className="list-group-item list-group-item-action">Delete</button>
+      <table className="table shadow-sm bg-white rounded">
+        <tbody>
+          <tr>
+            <td>{props.taskName}</td>
+            <td className="buttons">
+              <button
+                type="button"
+                className="btn btn-success btn-sm"
+                onClick={() => {
+                  return props.toggleTask(taskId, index);
+                }}
+              >Complete</button>
+              <button
+                onClick={() => {
+                  return props.deleteTask(username, taskId, index);
+                }}
+                type="button"
+                className="btn btn-danger btn-sm"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   )
 }

@@ -16,11 +16,19 @@ const TaskDisplay = props => {
   // console.log(tasks);
   //if (taskList.length !== 0) {
     return (
-      <div className="list-group">
+      
+      <div className="container overflow-auto">
+        <table>
+        <thead>
+          <tr>
+          <th scope="col" className="header">Task</th>
+          <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        </table>
         {tasks}
       </div>
     )
-  //}
 }
 
 export default TaskDisplay;

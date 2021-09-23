@@ -52,3 +52,19 @@ div {
 		background-position: 0% 50%;
 	}
 }
+
+td {
+  vertical-align: middle;
+}
+
+td.buttons {
+  text-align: right;
+}
+
+th.header {
+  margin-right: 30px;
+}
+
+input.filter {
+  margin-right: 10px;
+}
