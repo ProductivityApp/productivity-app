@@ -39,7 +39,7 @@ class TaskContainer extends React.Component {
     return (
         <div>
         <TaskCreator username={this.props.username} addTask={this.props.addTask}/>
-        <TaskDisplay taskList={this.props.filterList} toggleTask={this.props.toggleTask} deleteTask={this.props.deleteTask}/>
+        <TaskDisplay className = "taskOverflow" taskList={this.props.filterList} toggleTask={this.props.toggleTask} deleteTask={this.props.deleteTask}/>
       </div>
     )
     } 
@@ -47,7 +47,7 @@ class TaskContainer extends React.Component {
         return (
             <div>
             <TaskCreator username={this.props.username} addTask={this.props.addTask}/>
-            <TaskDisplay username={this.props.username} taskList={this.props.taskList} toggleTask={this.props.toggleTask} deleteTask={this.props.deleteTask}/>
+            <TaskDisplay className = "taskOverflow" username={this.props.username} taskList={this.props.taskList} toggleTask={this.props.toggleTask} deleteTask={this.props.deleteTask}/>
           </div>
     )
     }

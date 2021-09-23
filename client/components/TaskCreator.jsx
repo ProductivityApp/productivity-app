@@ -21,21 +21,25 @@ const mapStateToProps = state => ({
 });
 
 const TaskCreator = (props) => {
-  
   const handleCheck = (e) =>{
-  props.addFilter(e,props.taskList,document.getElementById('newTask').value)
+  props.addFilter(e,props.taskList,document.getElementById('newTask').value);
+  const handlePlaceHolder = document.getElementById('newTask').placeholder;
+  document.getElementById('newTask').placeholder = handlePlaceHolder === 'Filter by name...' ? 'Add new task...' : 'Filter by name...';
   }
-  const handleInput = () =>{
-    props.liveFilterName("BY_NAME_LIVE",props.taskList,document.getElementById('newTask').value)
+  
+  const handleInput = (e) =>{
+    if(e.key === 'Enter') isTaskNameUnique();
+    else props.liveFilterName("BY_NAME_LIVE",props.taskList,document.getElementById('newTask').value)
   }
   const isTaskNameUnique = () => {
     const newInput =  document.getElementById('newTask').value;
+    document.getElementById('newTask').value = '';
     let unique = true;
     for(let i = 0; i < props.taskList.length; i++){
       if(props.taskList[i].taskName === newInput) unique = false;
       break;
     }
-    if(unique) props.addTask(props.username, newInput);
+    unique ? props.addTask(props.username, newInput) : alert("A task by this name exists...")
   }
   return(
     <div>

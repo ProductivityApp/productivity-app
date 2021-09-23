@@ -56,6 +56,10 @@ div {
 td {
   vertical-align: middle;
 }
+.taskOverflow{
+max-height: 400px;
+overflow-y: scroll;
+}
 
 td.buttons {
   text-align: right;

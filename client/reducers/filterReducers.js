@@ -13,15 +13,11 @@ export default function filterReducers(state = initialState, action) {
   switch (action.type) {
 //***************************************************************************************    
     case types.BY_NAME: {
-      const name_filter = !state.name_filter;
+      console.log("data in filterReducer",!state.name_filter,action.payload.current_input,action.payload.taskList);
+      const name_filter = !state.name_filter
       const current_input = action.payload.current_input;
-      const list_to_filter = action.payload.taskList;
-      let filterList = [];
-      if(name_filter){
-          filterList = list_to_filter.filter((task)=>{
-              task.taskName.includes(current_input);
-          }); 
-      }
+      const filterList = action.payload.taskList.slice();
+      console.log("data",name_filter,current_input,filterList);
       return {
         name_filter,
         filterList,
@@ -34,14 +30,12 @@ case types.BY_NAME_LIVE: {
     const current_input = action.payload.current_input;
     const list_to_filter = action.payload.taskList;
     let filterList = [];
-    if(name_filter){
-        console.log("filtering if it's checked")
-        console.log("list_to_filter is:",list_to_filter)
+    if(name_filter&&current_input!==''){
         filterList = list_to_filter.filter((task)=>{
-            console.log("inside filter",task.taskName,"current_input",current_input)
            if(task.taskName.includes(current_input)) return task;
         }); 
-        console.log("filter list is now:",filterList)
+    } else{
+      filterList = list_to_filter.slice();
     }
     return {
       ...state,
